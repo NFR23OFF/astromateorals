@@ -3,28 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AstroMate Orals - Chief Mate Prep</title>
+    <title>AstroMate Orals - Premium Chief Mate Prep</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; padding: 0; color: #333; }
-        header { background: #002b49; color: white; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
-        .subtitle { font-size: 12px; color: #a0c4ff; margin-top: 5px; }
-        .filter-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; padding: 0 15px; }
-        .filter-btn { background: white; border: 2px solid #002b49; color: #002b49; padding: 10px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.3s; flex: 1; max-width: 100px; text-align: center; }
-        .filter-btn.active, .filter-btn:hover { background: #002b49; color: white; }
-        #app-container { max-width: 600px; margin: 0 auto; padding: 15px; }
-        .card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); border-left: 5px solid #0056b3; position: relative; }
-        .card.hot::after { content: '🔥 HOT'; position: absolute; top: 15px; right: 15px; background: #ff4d4d; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px; }
-        .meta-info { font-size: 12px; color: #666; margin-bottom: 8px; font-weight: bold; }
-        .question-text { font-size: 16px; font-weight: 600; color: #111; margin-bottom: 15px; line-height: 1.4; }
-        .action-btn { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; font-size: 14px; }
-        .action-btn:hover { background: #0056b3; }
-        .answer-box { display: none; margin-top: 15px; background: #f8f9fa; border-top: 1px solid #eee; padding-top: 15px; }
-        .answer-title { font-weight: bold; color: #28a745; margin-bottom: 5px; font-size: 14px; }
-        .answer-content { font-size: 15px; line-height: 1.5; color: #333; }
-        .fail-box { background: #fff5f5; border: 1px solid #ffccd5; color: #b71c1c; padding: 10px; border-radius: 6px; margin-top: 10px; font-size: 13px; font-weight: 500; }
-        .reg-badge { display: inline-block; background: #e2e8f0; color: #4a5568; font-size: 11px; padding: 3px 8px; border-radius: 4px; margin-top: 10px; font-weight: bold; }
-        .ad-banner { background: #ebebeb; text-align: center; padding: 15px; margin: 20px 0; font-size: 12px; color: #777; border: 1px dashed #bbb; border-radius: 8px; }
+        :root { --primary: #0a192f; --accent: #64ffda; --text: #8892b0; --white: #e6f1ff; --card-bg: #112240; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--primary); margin: 0; padding: 0; color: var(--text); padding-bottom: 40px; }
+        header { background: #020c1b; padding: 25px 20px; text-align: center; border-bottom: 2px solid var(--card-bg); }
+        h1 { margin: 0; font-size: 26px; color: var(--white); font-weight: 700; letter-spacing: 1px; }
+        .subtitle { font-size: 13px; color: var(--accent); margin-top: 5px; font-weight: 600; text-transform: uppercase; }
+        
+        .directory-box { max-width: 500px; margin: 20px auto; padding: 0 15px; text-align: center; }
+        .directory-box label { display: block; color: var(--white); font-size: 14px; font-weight: bold; margin-bottom: 8px; text-align: left; padding-left: 5px; }
+        .directory-select { width: 100%; padding: 14px 20px; background: var(--card-bg); border: 1px solid #233554; border-radius: 8px; color: var(--white); font-size: 15px; outline: none; margin-bottom: 10px; cursor: pointer; }
+        
+        .profile-card { background: #172a45; border: 1px solid var(--accent); border-radius: 8px; padding: 15px; margin: 15px auto; max-width: 570px; display: none; text-align: left; }
+        .profile-title { color: var(--white); font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+        .profile-meta { color: var(--accent); font-size: 12px; font-weight: 600; }
+
+        .search-box { max-width: 500px; margin: 10px auto 20px auto; padding: 0 15px; box-sizing: border-box; }
+        .search-box input { width: 100%; padding: 14px 20px; background: var(--card-bg); border: 1px solid #233554; border-radius: 30px; color: var(--white); font-size: 15px; box-sizing: border-box; outline: none; }
+        .search-box input:focus { border-color: var(--accent); }
+
+        .filter-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; padding: 0 15px; }
+        .filter-btn { background: var(--card-bg); border: 1px solid #233554; color: var(--white); padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; }
+        .filter-btn.active, .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+        
+        #app-container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
+        .card { background: var(--card-bg); border-radius: 12px; padding: 22px; margin-bottom: 20px; box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); border-top: 4px solid #233554; position: relative; transition: 0.3s; }
+        .card.hot { border-top-color: #ff4d4d; }
+        .card.hot::after { content: '🔥 TRENDING HOT'; position: absolute; top: 22px; right: 22px; color: #ff4d4d; font-size: 10px; font-weight: bold; letter-spacing: 1px; }
+        
+        .meta-info { font-size: 11px; color: var(--accent); margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .question-text { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 18px; line-height: 1.5; }
+        
+        .voice-section { background: rgba(100, 255, 218, 0.05); border: 1px dashed var(--accent); padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
+        .voice-btn { background: none; border: none; color: var(--accent); font-weight: bold; cursor: pointer; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+        
+        .action-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 12px 15px; border-radius: 4px; font-weight: 600; cursor: pointer; width: 100%; font-size: 14px; transition: 0.3s; }
+        .action-btn:hover { background: rgba(100, 255, 218, 0.1); }
+        
+        .answer-box { display: none; margin-top: 20px; border-top: 1px solid #233554; padding-top: 20px; }
+        .answer-title { font-weight: bold; color: var(--accent); margin-bottom: 8px; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .answer-content { font-size: 15px; line-height: 1.6; color: var(--text); }
+        
+        .fail-box { background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; color: #ff6b6b; padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 13px; line-height: 1.4; }
+        .reg-badge { display: inline-block; background: #172a45; color: var(--white); font-size: 11px; padding: 4px 10px; border-radius: 4px; margin-top: 15px; font-weight: 600; border: 1px solid #233554; }
+        .ad-banner { background: var(--card-bg); text-align: center; padding: 15px; margin: 20px auto; max-width: 570px; font-size: 12px; color: var(--text); border: 1px dashed #233554; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -34,55 +57,100 @@
         <div class="subtitle">Chief Mate MMD Intelligence Engine</div>
     </header>
 
-    <!-- F1, F2, F3 Filter Buttons -->
+    <!-- SURVEYOR DIRECTORY DROPDOWN -->
+    <div class="directory-box">
+        <label for="surveyor-select">Select Live Surveyor Profile:</label>
+        <select id="surveyor-select" class="directory-select" onchange="selectSurveyorProfile()">
+            <option value="ALL">-- Browse All MMD Surveyors --</option>
+        </select>
+    </div>
+
+    <!-- DYNAMIC SURVEYOR PROFILE DISPLAY BOX -->
+    <div id="profile-display" class="profile-card">
+        <div id="profile-name" class="profile-title">Surveyor Name</div>
+        <div id="profile-meta" class="profile-meta">MMD Center Analysis Data</div>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="search-input" onkeyup="searchApp()" placeholder="Or type keywords to search questions directly...">
+    </div>
+
     <div class="filter-container">
-        <div class="filter-btn active" onclick="filterFunction('ALL')">ALL</div>
-        <div class="filter-btn" onclick="filterFunction('F1')">F1</div>
-        <div class="filter-btn" onclick="filterFunction('F2')">F2</div>
-        <div class="filter-btn" onclick="filterFunction('F3')">F3</div>
+        <div class="filter-btn active" onclick="filterFunction('ALL', this)">ALL FUNCTIONS</div>
+        <div class="filter-btn" onclick="filterFunction('F1', this)">F1</div>
+        <div class="filter-btn" onclick="filterFunction('F2', this)">F2</div>
+        <div class="filter-btn" onclick="filterFunction('F3', this)">F3</div>
     </div>
 
-    <!-- AD SPACE 1 -->
-    <div class="ad-banner">
-        <!-- Paste your Google AdSense code here later -->
-        [ Advertisement Space ]
-    </div>
+    <div class="ad-banner">[ Top Header Advertisement Banner ]</div>
 
-    <div id="app-container">Loading MMD surveyor questions...</div>
+    <div id="app-container">Loading interactive MMD intelligence...</div>
 
     <script>
         let allQuestions = [];
+        let activeFilter = 'ALL';
+        let selectedSurveyor = 'ALL';
 
-        // Function to read local CSV file
         async function loadCSV() {
             try {
                 const response = await fetch('database.csv');
                 const data = await response.text();
+                const lines = data.split(/\r?\n/).filter(line => line.trim().length > 0);
                 
-                // Split rows, clean up hidden characters
-                const rows = data.split("\n").map(row => row.trim()).filter(row => row.length > 0);
-                
-                // Skip header row (row 0)
-                allQuestions = rows.slice(1).map(row => {
-                    // Split columns by tab or comma depending on how excel exported it
-                    const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); 
+                allQuestions = lines.slice(1).map(line => {
+                    const cleanCols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
                     return {
-                        surveyor: columns[0]?.replace(/"/g, '') || '',
-                        center: columns[1]?.replace(/"/g, '') || '',
-                        func: columns[2]?.replace(/"/g, '') || '',
-                        question: columns[3]?.replace(/"/g, '') || '',
-                        answer: columns[4]?.replace(/"/g, '') || '',
-                        reg: columns[5]?.replace(/"/g, '') || '',
-                        fail: columns[6]?.replace(/"/g, '') || '',
-                        date: columns[7]?.replace(/"/g, '') || '',
-                        status: columns[8]?.replace(/"/g, '') || ''
+                        surveyor: cleanCols[0] || '',
+                        center: cleanCols[1] || '',
+                        func: cleanCols[2] || '',
+                        question: cleanCols[3] || '',
+                        answer: cleanCols[4] || '',
+                        reg: cleanCols[5] || '',
+                        fail: cleanCols[6] || '',
+                        date: cleanCols[7] || '',
+                        status: cleanCols[8] || ''
                     };
                 });
 
+                populateSurveyorDropdown();
                 renderCards(allQuestions);
             } catch (error) {
-                document.getElementById('app-container').innerHTML = "Error loading database. Make sure database.csv is in the folder.";
+                document.getElementById('app-container').innerHTML = "<p style='text-align:center;'>Unable to load data. Double check your database.csv file structure.</p>";
             }
+        }
+
+        // Dynamically reads the Excel sheet to find all unique surveyor names
+        function populateSurveyorDropdown() {
+            const dropdown = document.getElementById("surveyor-select");
+            const uniqueSurveyors = [...new Set(allQuestions.map(q => q.surveyor).filter(name => name.length > 0))];
+            
+            uniqueSurveyors.sort().forEach(name => {
+                const option = document.createElement("option");
+                option.value = name;
+                option.innerText = name;
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Triggered when a user picks a surveyor from the list
+        function selectSurveyorProfile() {
+            const selectVal = document.getElementById("surveyor-select").value;
+            selectedSurveyor = selectVal;
+            
+            const profileBox = document.getElementById("profile-display");
+            
+            if (selectVal === "ALL") {
+                profileBox.style.display = "none";
+            } else {
+                const surveyorQuestions = allQuestions.filter(q => q.surveyor === selectVal);
+                const mmdCenter = surveyorQuestions[0]?.center || "Unknown Center";
+                
+                document.getElementById("profile-name").innerText = `🔍 Examiner: ${selectVal}`;
+                document.getElementById("profile-meta").innerText = `MMD Hub: ${mmdCenter} | Total Verified Trends: ${surveyorQuestions.length} Active Prompts`;
+                profileBox.style.display = "block";
+            }
+            
+            searchApp();
         }
 
         function renderCards(questions) {
@@ -90,58 +158,8 @@
             container.innerHTML = "";
 
             if(questions.length === 0) {
-                container.innerHTML = "<p style='text-align:center; color:#999;'>No questions found for this function.</p>";
+                container.innerHTML = "<p style='text-align:center; color:var(--text);'>No active oral trends match your filter parameters.</p>";
                 return;
             }
 
             questions.forEach((q, index) => {
-                const isHot = q.status.toUpperCase() === 'HOT' ? 'hot' : '';
-                const card = document.createElement("div");
-                card.className = `card ${isHot}`;
-                
-                card.innerHTML = `
-                    <div class="meta-info">${q.surveyor} | MMD ${q.center} (${q.func})</div>
-                    <div class="question-text">Q: ${q.question}</div>
-                    <button class="action-btn" onclick="toggleAnswer(${index})">Reveal Surveyor Answer</button>
-                    
-                    <div id="ans-${index}" class="answer-box">
-                        <div class="answer-title">Expected Answer:</div>
-                        <div class="answer-content">${q.answer}</div>
-                        ${q.fail ? `<div class="fail-box">${q.fail}</div>` : ''}
-                        ${q.reg ? `<div class="reg-badge">${q.reg}</div>` : ''}
-                    </div>
-                `;
-                container.appendChild(card);
-
-                // Add an ad space after every 3 cards
-                if ((index + 1) % 3 === 0) {
-                    const ad = document.createElement("div");
-                    ad.className = "ad-banner";
-                    ad.innerHTML = "[ In-Feed Advertisement Space ]";
-                    container.appendChild(ad);
-                }
-            });
-        }
-
-        function toggleAnswer(id) {
-            const ans = document.getElementById(`ans-${id}`);
-            ans.style.display = ans.style.display === "block" ? "none" : "block";
-        }
-
-        function filterFunction(funcType) {
-            // Update active button color
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (funcType === 'ALL') {
-                renderCards(allQuestions);
-            } else {
-                const filtered = allQuestions.filter(q => q.func.trim().toUpperCase() === funcType.toUpperCase());
-                renderCards(filtered);
-            }
-        }
-
-        window.onload = loadCSV;
-    </script>
-</body>
-</html>
