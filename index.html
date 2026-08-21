@@ -3,163 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AstroMate Orals - Premium Chief Mate Prep</title>
+    <title>AstroMate Orals - Premium Chief Mate Prep Dashboard</title>
     <style>
-        :root { --primary: #0a192f; --accent: #64ffda; --text: #8892b0; --white: #e6f1ff; --card-bg: #112240; }
-        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--primary); margin: 0; padding: 0; color: var(--text); padding-bottom: 40px; }
-        header { background: #020c1b; padding: 25px 20px; text-align: center; border-bottom: 2px solid var(--card-bg); }
-        h1 { margin: 0; font-size: 26px; color: var(--white); font-weight: 700; letter-spacing: 1px; }
-        .subtitle { font-size: 13px; color: var(--accent); margin-top: 5px; font-weight: 600; text-transform: uppercase; }
+        :root { 
+            --primary: #0a192f; 
+            --accent: #64ffda; 
+            --text: #8892b0; 
+            --white: #e6f1ff; 
+            --card-bg: #112240; 
+            --dark-blue: #020c1b;
+            --danger: #ff4d4d;
+            --warning: #ffb703;
+        }
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif; 
+            background: var(--primary); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--text); 
+            padding-bottom: 60px; 
+        }
+        header { 
+            background: var(--dark-blue); 
+            padding: 30px 20px; 
+            text-align: center; 
+            border-bottom: 2px solid var(--card-bg); 
+        }
+        header h1 { 
+            margin: 0; 
+            font-size: 28px; 
+            color: var(--white); 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+        }
+        .subtitle { 
+            font-size: 13px; 
+            color: var(--accent); 
+            margin-top: 5px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+        }
         
-        .directory-box { max-width: 500px; margin: 20px auto; padding: 0 15px; text-align: center; }
-        .directory-box label { display: block; color: var(--white); font-size: 14px; font-weight: bold; margin-bottom: 8px; text-align: left; padding-left: 5px; }
-        .directory-select { width: 100%; padding: 14px 20px; background: var(--card-bg); border: 1px solid #233554; border-radius: 8px; color: var(--white); font-size: 15px; outline: none; margin-bottom: 10px; cursor: pointer; }
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media(min-width: 900px) {
+            .main-layout {
+                grid-template-columns: 320px 1fr;
+            }
+            .sidebar-controls {
+                position: sticky;
+                top: 20px;
+                height: max-content;
+            }
+        }
+
+        .control-panel {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #233554;
+            margin-bottom: 20px;
+        }
+        .control-panel h3 {
+            color: var(--white);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-bottom: 1px solid #233554;
+            padding-bottom: 8px;
+        }
+
+        .directory-box label { 
+            display: block; 
+            color: var(--white); 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+        }
+        .directory-select { 
+            width: 100%; 
+            padding: 12px 15px; 
+            background: var(--primary); 
+            border: 1px solid #233554; 
+            border-radius: 6px; 
+            color: var(--white); 
+            font-size: 14px; 
+            outline: none; 
+            margin-bottom: 15px; 
+            cursor: pointer; 
+        }
+        .directory-select:focus {
+            border-color: var(--accent);
+        }
         
-        .profile-card { background: #172a45; border: 1px solid var(--accent); border-radius: 8px; padding: 15px; margin: 15px auto; max-width: 570px; display: none; text-align: left; }
-        .profile-title { color: var(--white); font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+        .profile-card { 
+            background: #172a45; 
+            border: 1px solid var(--accent); 
+            border-radius: 8px; 
+            padding: 15px; 
+            margin-bottom: 20px;
+            display: none; 
+        }
+        .profile-title { color: var(--white); font-size: 16px; font-weight: bold; margin-bottom: 5px; }
         .profile-meta { color: var(--accent); font-size: 12px; font-weight: 600; }
 
-        .search-box { max-width: 500px; margin: 10px auto 20px auto; padding: 0 15px; box-sizing: border-box; }
-        .search-box input { width: 100%; padding: 14px 20px; background: var(--card-bg); border: 1px solid #233554; border-radius: 30px; color: var(--white); font-size: 15px; box-sizing: border-box; outline: none; }
+        .search-box { margin-bottom: 20px; }
+        .search-box input { 
+            width: 100%; 
+            padding: 14px 20px; 
+            background: var(--card-bg); 
+            border: 1px solid #233554; 
+            border-radius: 8px; 
+            color: var(--white); 
+            font-size: 15px; 
+            box-sizing: border-box; 
+            outline: none; 
+        }
         .search-box input:focus { border-color: var(--accent); }
 
-        .filter-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; padding: 0 15px; }
-        .filter-btn { background: var(--card-bg); border: 1px solid #233554; color: var(--white); padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; }
-        .filter-btn.active, .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .tabs-container {
+            display: flex;
+            background: var(--dark-blue);
+            padding: 5px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #233554;
+        }
+        .tab-btn {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: var(--card-bg);
+            color: var(--accent);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .filter-chip { 
+            background: var(--primary); 
+            border: 1px solid #233554; 
+            color: var(--white); 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            font-size: 11px; 
+        }
+        .filter-chip.active, .filter-chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(100, 255, 218, 0.05); }
         
-        #app-container { max-width: 600px; margin: 0 auto; padding: 0 15px; }
-        .card { background: var(--card-bg); border-radius: 12px; padding: 22px; margin-bottom: 20px; box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); border-top: 4px solid #233554; position: relative; transition: 0.3s; }
-        .card.hot { border-top-color: #ff4d4d; }
-        .card.hot::after { content: '🔥 TRENDING HOT'; position: absolute; top: 22px; right: 22px; color: #ff4d4d; font-size: 10px; font-weight: bold; letter-spacing: 1px; }
+        .stats-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background: var(--card-bg);
+            border: 1px solid #233554;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+        .stat-val {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-lbl {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            border-radius: 12px; 
+            padding: 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); 
+            border-top: 4px solid #233554; 
+            position: relative; 
+            transition: 0.3s; 
+        }
+        .card.hot { border-top-color: var(--danger); }
+        .card.hot::after { 
+            content: '⚠️ SAFETY CRITICAL'; 
+            position: absolute; 
+            top: 24px; 
+            right: 24px; 
+            color: var(--danger); 
+            font-size: 10px; 
+            font-weight: bold; 
+            letter-spacing: 1px; 
+        }
         
-        .meta-info { font-size: 11px; color: var(--accent); margin-bottom: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        .question-text { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 18px; line-height: 1.5; }
+        .meta-info { 
+            font-size: 11px; 
+            color: var(--accent); 
+            margin-bottom: 12px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            display: flex;
+            gap: 15px;
+        }
+        .question-text { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 18px; line-height: 1.5; }
         
-        .voice-section { background: rgba(100, 255, 218, 0.05); border: 1px dashed var(--accent); padding: 12px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
-        .voice-btn { background: none; border: none; color: var(--accent); font-weight: bold; cursor: pointer; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
-        
-        .action-btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 12px 15px; border-radius: 4px; font-weight: 600; cursor: pointer; width: 100%; font-size: 14px; transition: 0.3s; }
+        .action-btn { 
+            background: transparent; 
+            border: 1px solid var(--accent); 
+            color: var(--accent); 
+            padding: 10px 15px; 
+            border-radius: 4px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            width: 100%; 
+            font-size: 13px; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
         .action-btn:hover { background: rgba(100, 255, 218, 0.1); }
         
-        .answer-box { display: none; margin-top: 20px; border-top: 1px solid #233554; padding-top: 20px; }
-        .answer-title { font-weight: bold; color: var(--accent); margin-bottom: 8px; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; }
-        .answer-content { font-size: 15px; line-height: 1.6; color: var(--text); }
+        .answer-box { 
+            display: none; 
+            margin-top: 20px; 
+            border-top: 1px solid #233554; 
+            padding-top: 20px; 
+        }
+        .answer-title { font-weight: bold; color: var(--accent); margin-bottom: 8px; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .answer-content { font-size: 14.5px; line-height: 1.6; color: var(--text); }
         
-        .fail-box { background: rgba(255, 77, 77, 0.1); border: 1px solid #ff4d4d; color: #ff6b6b; padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 13px; line-height: 1.4; }
-        .reg-badge { display: inline-block; background: #172a45; color: var(--white); font-size: 11px; padding: 4px 10px; border-radius: 4px; margin-top: 15px; font-weight: 600; border: 1px solid #233554; }
-        .ad-banner { background: var(--card-bg); text-align: center; padding: 15px; margin: 20px auto; max-width: 570px; font-size: 12px; color: var(--text); border: 1px dashed #233554; border-radius: 8px; }
+        .fail-box { 
+            background: rgba(255, 77, 77, 0.07); 
+            border: 1px solid var(--danger); 
+            color: #ff6b6b; 
+            padding: 14px; 
+            border-radius: 6px; 
+            margin-top: 15px; 
+            font-size: 13px; 
+            line-height: 1.5; 
+        }
+        .fail-box strong {
+            color: var(--danger);
+            text-transform: uppercase;
+            font-size: 11px;
+            display: block;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        .reg-badge { 
+            display: inline-block; 
+            background: #172a45; 
+            color: var(--white); 
+            font-size: 11px; 
+            padding: 4px 10px; 
+            border-radius: 4px; 
+            margin-top: 15px; 
+            font-weight: 600; 
+            border: 1px solid #233554; 
+        }
+
+        /* FAQ Styling System */
+        .faq-container {
+            display: none;
+        }
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid #233554;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .faq-trigger {
+            padding: 18px 20px;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #112240;
+            user-select: none;
+        }
+        .faq-trigger:hover {
+            background: #172a45;
+        }
+        .faq-content {
+            display: none;
+            padding: 20px;
+            border-top: 1px solid #233554;
+            font-size: 14px;
+            line-height: 1.6;
+            background: rgba(2, 12, 27, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px dashed #233554;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>AstroMate Orals</h1>
-        <div class="subtitle">Chief Mate MMD Intelligence Engine</div>
-    </header>
-
-    <!-- SURVEYOR DIRECTORY DROPDOWN -->
-    <div class="directory-box">
-        <label for="surveyor-select">Select Live Surveyor Profile:</label>
-        <select id="surveyor-select" class="directory-select" onchange="selectSurveyorProfile()">
-            <option value="ALL">-- Browse All MMD Surveyors --</option>
-        </select>
-    </div>
-
-    <!-- DYNAMIC SURVEYOR PROFILE DISPLAY BOX -->
-    <div id="profile-display" class="profile-card">
-        <div id="profile-name" class="profile-title">Surveyor Name</div>
-        <div id="profile-meta" class="profile-meta">MMD Center Analysis Data</div>
-    </div>
-
-    <div class="search-box">
-        <input type="text" id="search-input" onkeyup="searchApp()" placeholder="Or type keywords to search questions directly...">
-    </div>
-
-    <div class="filter-container">
-        <div class="filter-btn active" onclick="filterFunction('ALL', this)">ALL FUNCTIONS</div>
-        <div class="filter-btn" onclick="filterFunction('F1', this)">F1</div>
-        <div class="filter-btn" onclick="filterFunction('F2', this)">F2</div>
-        <div class="filter-btn" onclick="filterFunction('F3', this)">F3</div>
-    </div>
-
-    <div class="ad-banner">[ Top Header Advertisement Banner ]</div>
-
-    <div id="app-container">Loading interactive MMD intelligence...</div>
-
-    <script>
-        let allQuestions = [];
-        let activeFilter = 'ALL';
-        let selectedSurveyor = 'ALL';
-
-        async function loadCSV() {
-            try {
-                const response = await fetch('database.csv');
-                const data = await response.text();
-                const lines = data.split(/\r?\n/).filter(line => line.trim().length > 0);
-                
-                allQuestions = lines.slice(1).map(line => {
-                    const cleanCols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
-                    return {
-                        surveyor: cleanCols[0] || '',
-                        center: cleanCols[1] || '',
-                        func: cleanCols[2] || '',
-                        question: cleanCols[3] || '',
-                        answer: cleanCols[4] || '',
-                        reg: cleanCols[5] || '',
-                        fail: cleanCols[6] || '',
-                        date: cleanCols[7] || '',
-                        status: cleanCols[8] || ''
-                    };
-                });
-
-                populateSurveyorDropdown();
-                renderCards(allQuestions);
-            } catch (error) {
-                document.getElementById('app-container').innerHTML = "<p style='text-align:center;'>Unable to load data. Double check your database.csv file structure.</p>";
-            }
-        }
-
-        // Dynamically reads the Excel sheet to find all unique surveyor names
-        function populateSurveyorDropdown() {
-            const dropdown = document.getElementById("surveyor-select");
-            const uniqueSurveyors = [...new Set(allQuestions.map(q => q.surveyor).filter(name => name.length > 0))];
-            
-            uniqueSurveyors.sort().forEach(name => {
-                const option = document.createElement("option");
-                option.value = name;
-                option.innerText = name;
-                dropdown.appendChild(option);
-            });
-        }
-
-        // Triggered when a user picks a surveyor from the list
-        function selectSurveyorProfile() {
-            const selectVal = document.getElementById("surveyor-select").value;
-            selectedSurveyor = selectVal;
-            
-            const profileBox = document.getElementById("profile-display");
-            
-            if (selectVal === "ALL") {
-                profileBox.style.display = "none";
-            } else {
-                const surveyorQuestions = allQuestions.filter(q => q.surveyor === selectVal);
-                const mmdCenter = surveyorQuestions[0]?.center || "Unknown Center";
-                
-                document.getElementById("profile-name").innerText = `🔍 Examiner: ${selectVal}`;
-                document.getElementById("profile-meta").innerText = `MMD Hub: ${mmdCenter} | Total Verified Trends: ${surveyorQuestions.length} Active Prompts`;
-                profileBox.style.display = "block";
-            }
-            
-            searchApp();
-        }
-
-        function renderCards(questions) {
-            const container = document.getElementById("app-container");
-            container.innerHTML = "";
-
-            if(questions.length === 0) {
-                container.innerHTML = "<p style='text-align:center; color:var(--text);'>No active oral trends match your filter parameters.</p>";
-                return;
-            }
-
-            questions.forEach((q, index) => {
